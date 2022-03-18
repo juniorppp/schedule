@@ -43,6 +43,9 @@ class Paginas:
             print("Não consigo criar a pasta.")
 
     def _sites(self,site):
-        self.driver.get(site)
-        time.sleep(10)
-        self.driver.execute_script('window.print();')
+        try:
+            self.driver.get(site)
+            time.sleep(10)
+            self.driver.execute_script('window.print();')
+        except:
+            print("\033[31m"+"Erro."+"\033[0;0m")    

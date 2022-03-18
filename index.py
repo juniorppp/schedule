@@ -1,3 +1,6 @@
+#https://apscheduler.readthedocs.io/en/3.x/userguide.html - Referencia
+#https://superfastpython.com/threadpoolexecutor-in-python/
+
 from lib.paginas import Paginas
 from apscheduler.events import EVENT_JOB_ERROR
 from apscheduler.executors.pool import ProcessPoolExecutor, ThreadPoolExecutor
@@ -17,6 +20,7 @@ executors = {
 }
 job_defaults = {
     'coalesce': False,
+    #DEFINE A QUANTIDADE DE INSTANCIAS QUE PODE TRABALHAR
     'max_instances': 1
 }
     
@@ -26,6 +30,8 @@ scheduler = BackgroundScheduler(
 )
 
 scheduler.add_job(_process, trigger='cron', second='5')
+#scheduler.add_job(_process, trigger='cron', second='*/5')
+#scheduler.add_job(_process, 'interval', minutes=1)
 
 if __name__ == '__main__':  
     print('Start')
@@ -35,3 +41,5 @@ if __name__ == '__main__':
             time.sleep(1)
     except (KeyboardInterrupt, SystemExit):
         scheduler.shutdown()
+        #Isso faz com que não espere a conclusão da execução
+        #scheduler.shutdown(wait=False)
